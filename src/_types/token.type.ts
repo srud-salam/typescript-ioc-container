@@ -1,3 +1,1 @@
-import { Constructor } from ".";
-
-export type Token<T = any> = Constructor<T> | string;
+export type Token<T = any> = { new (...args: any[]): T } | string;

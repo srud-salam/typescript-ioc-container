@@ -1,10 +1,11 @@
 import { IRegister } from "../_interface";
+import { Factory } from "../_types";
 
 export default class Register<T, Tokens> implements IRegister<T, Tokens> {
-  protected instance: { [t in keyof Tokens]: T };
+  protected instance: Factory<T, Tokens>;
 
-  constructor(init: { [t in keyof Tokens]: T } | null) {
-    this.instance = init || ({} as any);
+  constructor(init: Factory<T, Tokens> | null) {
+    this.instance = init || ({} as Factory<T, Tokens>);
   }
 
   public has(token: string): boolean {

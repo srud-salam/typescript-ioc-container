@@ -14,7 +14,7 @@ const user = new User(1, person, "password");
 const container = new Container();
 container.register(Person, person);
 const person1 = container.bind(Person);
-console.log(person1);
+//console.log(person1);
 
 container.register(User, user);
 const user1 = container.bind(User);

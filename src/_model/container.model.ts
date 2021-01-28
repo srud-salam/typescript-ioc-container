@@ -1,7 +1,6 @@
-import "reflect-metadata";
-import { IContainer, IRegister } from "../_interface";
-import { Constructor, Token } from "../_types";
 import Register from "./register.model";
+import { IContainer, IRegister } from "../_interface";
+import { Token } from "../_types";
 
 export default class Container implements IContainer {
   registrations: IRegister<any, any>;
@@ -31,14 +30,7 @@ export default class Container implements IContainer {
 
   bind<T>(token: Token<T>): T {
     const className: string = this.getToken(token);
-    const classToken = this.registrations.get(className);
-
-    if (classToken) return classToken;
-
-    const classParams = this.checkForCyclicDependency(classToken);
-    const classInstance = new classToken(...classParams);
-
-    this.registrations.set(classInstance.constructor.name, classInstance);
+    const classInstance = this.registrations.get(className);
     return classInstance;
   }
 
@@ -46,17 +38,5 @@ export default class Container implements IContainer {
     return typeof token === "string"
       ? token
       : (token.prototype.constructor.name as string);
-  }
-
-  private checkForCyclicDependency(classToken: any) {
-    const params = Reflect.getMetadata("design:paramtypes", classToken);
-    const classParams = params.map((constructor: Constructor) => {
-      if (typeof constructor === undefined) {
-        throw new Error("Cyclic dependency detected");
-      }
-      this.bind(constructor);
-    });
-
-    return classParams;
   }
 }

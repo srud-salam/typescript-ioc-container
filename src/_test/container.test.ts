@@ -53,24 +53,16 @@ describe("Container", () => {
     });
 
     it("should bind an instance ", () => {
-      containerMock.prototype.register(Person, person);
-      const p1 = containerMock.prototype.bind(Person);
+      const spy = jest.spyOn(container, "register");
+      //container.register(Person, person);
 
-      container.register(
-        Person,
-        new Person("Srud", "Salam", 35, "srud.salam@outlook.com")
-      );
-      const person1 = container.bind(Person);
-      console.log(p1, person1);
+      const spy1 = jest.spyOn(container, "bind");
+      const person1 = container.bind<Person>(Person);
 
-      // const spy0 = jest.spyOn(container, "bind");
-      // const spy1 = jest.spyOn(container.registrations, "get");
+      console.log(spy1.mock.calls[0][0], person1);
 
-      // expect(spy0).toHaveBeenCalledTimes(1);
-      // expect(spy0).toHaveBeenCalledWith(Person);
-
-      expect(person).toBeInstanceOf(Person);
-      expect(person1).toBeInstanceOf(Person);
+      expect(spy).toHaveBeenCalledTimes(1);
+      //expect(spy1.mock.calls[0][0]).toHaveBeenCalledWith(person1);
     });
 
     // it("should not allow to register a class twice or have duplicate", () => {
