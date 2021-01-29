@@ -7,7 +7,7 @@ A default `Container` instance named `container` is exported by the library.
 
 A new container can also be instantiated as below:
 ```ts
-const cnt: Container = new Container();
+const container: Container = new Container();
 ```
 
 ## Binding

@@ -38,8 +38,8 @@ describe("Container", () => {
     });
   });
 
-  // test the Container methods
-  describe("Container Methed", () => {
+  // test the Container Registry methods
+  describe("Container Registry Methed", () => {
     it("should register a class with no error", () => {
       container.register(Person, person);
       expect(mockContainer.prototype.register).not.toThrow();
@@ -77,16 +77,10 @@ describe("Container", () => {
         "Empty registery detected"
       );
     });
+  });
 
-    it("should not allow to register a class twice or have duplicate", () => {
-      expect(() => {
-        container.register(Person, person);
-        container.register(Person, person);
-      }).toThrowError();
-      expect(mockContainer.prototype.register).toHaveBeenCalledTimes(2);
-      expect(mockContainer.prototype.register).toThrowError(
-        "duplicate class registration not allowed"
-      );
-    });
+  // test the Container Bind methods
+  describe("Container Bind Methed", () => {
+    // comming
   });
 });
