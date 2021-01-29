@@ -4,17 +4,7 @@
  */
 
 export default {
-  coverageReporters: ["lcov", "text", "html"],
-  reporters: ["default"],
   preset: "ts-jest",
-  testRegex: "(\\.|/)(test|spec)\\.ts?$",
-  moduleNameMapper: {},
-  globals: {
-    "ts-jest": {
-      tsconfig: "./tsconfig.json",
-      isolatedModules: false,
-    },
-  },
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 

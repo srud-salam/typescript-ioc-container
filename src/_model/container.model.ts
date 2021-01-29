@@ -10,6 +10,7 @@ export default class Container implements IContainer {
   }
 
   register<T>(token: Token, value: T): void {
+    console.log("test");
     const classRef: string = this.getToken(token);
 
     if (!value && !token) {

@@ -1,98 +1,92 @@
-import Container from "../_model";
 import { IContainer } from "../_interface";
-import { IPerson, Person } from "./_mock/person.mock";
-jest.mock("../_model");
+import Container from "../_model";
+import { IPerson, Person } from "./_mock";
+jest.mock("../_model"); ///Container is now a mock constructor
 
 describe("Container", () => {
-  let container: IContainer;
+  //Initial setup
+  const mockContainer = Container as jest.MockedClass<typeof Container>;
   const person: IPerson = new Person(
     "Srud",
     "Salam",
     35,
     "srud.salam@outlook.com"
   );
-  const containerMock = Container as jest.MockedClass<typeof Container>;
+  let container: IContainer;
 
   beforeEach(() => {
-    containerMock.mockClear();
+    mockContainer.mockClear();
     container = new Container();
   });
 
   afterEach(() => {
-    container = {} as Container;
+    mockContainer.mockClear();
   });
 
-  it("should be able to instantiated", () => {
-    expect(container).toBeInstanceOf(Container);
+  // test the Container constructor
+  describe("Container Constructor", () => {
+    it("should be able to instantiate it", () => {
+      expect(mockContainer.mock.instances[0]).toBeInstanceOf(Container);
+    });
+
+    it("should call the class constructor once", () => {
+      expect(mockContainer).toHaveBeenCalledTimes(1);
+    });
+
+    it("should the constructor creates the container object", () => {
+      expect(mockContainer).toBeTruthy();
+    });
   });
 
-  it("should call the class constructor once", () => {
-    expect(Container).toHaveBeenCalledTimes(1);
-  });
-
-  it("should the constructor creates the object", () => {
-    expect(container).toBeTruthy();
-  });
-
+  // test the Container methods
   describe("Container Methed", () => {
     it("should register a class with no error", () => {
-      expect(() => container.register(Person, person)).not.toThrow();
-    });
-
-    it("should register a class with no error", () => {
-      expect(() => container.register(Person, person)).not.toThrow();
-    });
-
-    it("should register an instance ", () => {
-      const spy = jest.spyOn(container, "register");
-
       container.register(Person, person);
-
-      expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy).toHaveBeenCalledWith(Person, person);
+      expect(mockContainer.prototype.register).not.toThrow();
     });
 
-    it("should bind an instance ", () => {
-      const spy = jest.spyOn(container, "register");
-      //container.register(Person, person);
-
-      const spy1 = jest.spyOn(container, "bind");
-      const person1 = container.bind<Person>(Person);
-
-      console.log(spy1.mock.calls[0][0], person1);
-
-      expect(spy).toHaveBeenCalledTimes(1);
-      //expect(spy1.mock.calls[0][0]).toHaveBeenCalledWith(person1);
+    it("should not allow to register a class twice or have duplicate", () => {
+      expect(() => {
+        container.register(Person, person);
+        container.register(Person, person);
+      }).toThrowError();
+      expect(mockContainer.prototype.register).toHaveBeenCalledTimes(2);
+      expect(mockContainer.prototype.register).toThrowError(
+        "duplicate class registration not allowed"
+      );
     });
 
-    // it("should not allow to register a class twice or have duplicate", () => {
-    //   const spy = jest
-    //     .spyOn(container, "register")
-    //     .mockImplementation(() => container.register(Person, person))
-    //     .mockImplementation(() => container.register(Person, person));
+    it("should detect invalid class reference", () => {
+      expect(() => {
+        container.register(Person, person);
+        container.register(Person, person);
+      }).toThrowError();
+      expect(mockContainer.prototype.register).toHaveBeenCalledTimes(2);
+      expect(mockContainer.prototype.register).toThrowError(
+        "Invalid class reference detected"
+      );
+    });
 
-    //   expect(container.register(Person, person)).toBe(person);
+    it("should not allow to register with empty token name", () => {
+      expect(() => {
+        container.register(Person, person);
+        container.register(Person, person);
+      }).toThrowError();
+      expect(mockContainer.prototype.register).toHaveBeenCalledTimes(2);
+      expect(mockContainer.prototype.register).toThrowError(
+        "Empty registery detected"
+      );
+    });
 
-    //   // const myMockFn = jest
-    //   //   .fn(() => "default")
-    //   //   .mockImplementationOnce(() => "first call")
-    //   //   .mockImplementationOnce(() => "second call");
-
-    //   // console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
-
-    //   // const mockFn = jest
-    //   //   .fn((p) => container.register(Person, p))
-    //   //   .mockImplementationOnce((p) => p)
-    //   //   .mockImplementationOnce((p) => p);
-
-    //   // console.log(
-    //   //   mockFn(person),
-    //   //   mockFn(person),
-    //   //   mockFn(person),
-    //   //   mockFn(person)
-    //   // );
-
-    //   // expect(mockFn).toThrow();
-    // });
+    it("should not allow to register a class twice or have duplicate", () => {
+      expect(() => {
+        container.register(Person, person);
+        container.register(Person, person);
+      }).toThrowError();
+      expect(mockContainer.prototype.register).toHaveBeenCalledTimes(2);
+      expect(mockContainer.prototype.register).toThrowError(
+        "duplicate class registration not allowed"
+      );
+    });
   });
 });
