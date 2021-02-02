@@ -4,12 +4,12 @@ import { Factory } from "../_types";
 export default class Register<T, Tokens> implements IRegister<T, Tokens> {
   protected instance: Factory<T, Tokens>;
 
-  constructor(init: Factory<T, Tokens> | null) {
+  constructor(init?: Factory<T, Tokens>) {
     this.instance = init || ({} as Factory<T, Tokens>);
   }
 
   public has(token: string): boolean {
-    return this.instance.hasOwnProperty(token);
+    return Object.prototype.hasOwnProperty.call(this.instance, token);
   }
 
   public get(token: keyof Tokens): T | undefined {

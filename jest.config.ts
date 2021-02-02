@@ -4,7 +4,21 @@
  */
 
 export default {
-  preset: "ts-jest",
+  coveragePathIgnorePatterns: ['/node_modules/', '/test'],
+  coverageReporters: ['lcov', 'text', 'html'],
+  reporters: ['default'],
+  roots: ['<rootDir>/src'],
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  testRegex: '(\\.|/)(test|spec)\\.ts?$',
+  moduleNameMapper: {},
+  globals: {
+    'ts-jest': {
+      tsconfig: './tsconfig.json',
+      isolatedModules: false,
+    },
+  },
+
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -23,17 +37,13 @@ export default {
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   // collectCoverageFrom: undefined,
 
-  // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
-  coveragePathIgnorePatterns: ["/node_modules/", "/test"],
+
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
   //   "/node_modules/"
   // ],
 
-  // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -138,8 +148,6 @@ export default {
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
   // snapshotSerializers: [],
 
-  // The test environment that will be used for testing
-  testEnvironment: "node",
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},

@@ -15,11 +15,11 @@ export class Person implements IPerson {
     public email: string
   ) {}
 
-  printName() {
+  public printName(): void {
     console.log(`${this.firstName} ${this.lastName}`);
   }
 
-  printAge() {
+  public printAge(): void {
     console.log(`the age of ${this.firstName} is ${this.age}`);
   }
 }

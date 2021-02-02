@@ -1,25 +1,28 @@
 {
-  "name": "simple-typescript-ioc",
+  "name": "simple-ioc-container",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn src/index.ts",
+    "build": "tsc --build",
     "start": "ts-node src/index.ts",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "build": "tsc"
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch --runInBand"
   },
   "keywords": [],
   "author": "Srud Salam",
   "license": "ISC",
   "devDependencies": {
-    "@types/jest": "^26.0.20",
+    "@types/jest": "^24.0.2",
     "@types/node": "^14.14.22",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "eslint": "^7.19.0",
     "jest": "^26.6.3",
-    "ts-jest": "^26.4.4",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.5.0",
     "ts-node": "^9.1.1",
-    "ts-node-dev": "^1.1.1",
     "typescript": "^4.1.3"
   }
 }
