@@ -1,7 +1,8 @@
+import { IContainer } from "../_interface";
 import { Token } from "../_types";
 import Register from "./register.model";
 
-export default class Container {
+export default class Container implements IContainer {
   registrations: Register<any, any>;
 
   constructor() {

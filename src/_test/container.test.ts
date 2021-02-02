@@ -1,9 +1,10 @@
+import { IContainer } from "../_interface";
 import Container from "../_models";
 import { IPerson, IUserSession, Person, User, UserSession } from "./_mocks";
 
 describe("Container", () => {
   //Initial setup
-  let container: Container;
+  let container: IContainer;
   const person: IPerson = new Person(
     "Srud",
     "Salam",
