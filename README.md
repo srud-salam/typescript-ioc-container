@@ -20,7 +20,7 @@ Calling the `container.bind(ClassName)` method will attempt to bind and construc
 A class instance can be registered with the `container.register` method:
 
 ```ts
-container.registerInstance(Person, sampleClassInstance)
+container.register(Person, sampleClassInstance)
 ```
 The first argument of  can either be a class constructor or a string.
 
